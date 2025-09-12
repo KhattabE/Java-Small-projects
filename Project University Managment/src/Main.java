@@ -83,7 +83,9 @@ public class Main {
                 //A switch case to choose the right one based on the user input
                 switch (optionChoice) {
 
-                    case 1 -> addStudent(scanner); //Method calls Addstudent
+                    case 1 -> addStudent(scanner); //Method calls AddStudent()
+
+                    case 2 -> addTeacher(scanner); //Method call addTeacher()
                 }
 
                 //Catch blocks to catch the exception if they occur, and then print out a message
@@ -95,6 +97,10 @@ public class Main {
             }
         }
     }
+
+
+
+
 
 
     //Method to add students
@@ -117,8 +123,11 @@ public class Main {
         System.out.println("--------------------------------------------------------------------");
 
 
+
         //A boolean variable so I can make my while loop
         boolean isValid = false;
+
+        int studentAge = 0;
 
         //While loop to be able to keep looping and asking the user to try again, if the user enters wrong or encounters and exception error
         while (!isValid) {
@@ -128,7 +137,7 @@ public class Main {
                 //Asks the user to enter the student age
                 System.out.print("Enter student age(16+): ");
                 //Integer.parseInt, better than scanner.nextInt() because it can catch NumberFormatException (If someone enters a string instead of an int)
-                int studentAge = Integer.parseInt(scanner.nextLine());
+                studentAge = Integer.parseInt(scanner.nextLine());
 
                 //
                 Validator.validateStudentAge(studentAge);
@@ -145,6 +154,7 @@ public class Main {
         }
 
 
+
         //Asks user to enter student major
         System.out.print("Enter students major: ");
         String studentMajor = scanner.nextLine();
@@ -159,15 +169,20 @@ public class Main {
         System.out.println(studentMajor + " has been added");
         System.out.println("--------------------------------------------------------------------");
 
-        //
+
+
+        //Boolean to use in a while loop
         boolean isYearValid = false;
-        //
+
+        int studentYearLevel = 0;
+
+        //While the boolean is false, it will keeep lopping
         while (!isYearValid) {
 
             try {
                 //Asks user to enter the students year level
                 System.out.print("Enter student year level(1-6): ");
-                int studentYearLevel = Integer.parseInt(scanner.nextLine());
+                studentYearLevel = Integer.parseInt(scanner.nextLine());
 
                 //This calls the static method from the custom exception class
                 InvalidStudentYearLevelException.validateStudentYear(studentYearLevel);
@@ -183,6 +198,116 @@ public class Main {
             }
 
         }
+
+        //Boolean to use inside the while loop
+        boolean isGPAValid = false;
+
+        double studentGPA = 0.0;
+
+        //Keeps looping as long as the boolean is false
+        while (!isGPAValid) {
+
+            try {
+                //asks user to enter student gpa
+                System.out.print("Enter student gpa(1.0-4.0): ");
+                studentGPA = Double.parseDouble(scanner.nextLine());
+
+                InvalidGpaException.validateGPA(studentGPA);
+
+                isGPAValid = true;
+
+            } catch (InvalidGpaException ige) {
+                System.out.println(ige.getMessage());
+            } catch (NumberFormatException nfe){
+                System.out.println("You must enter a decimal number!");
+            }
+        }
+
+        //Instancing the Student object
+        Student students = new Student(studentName, studentAge, studentMajor, studentYearLevel, studentGPA );
+        //Add the object to the arraylist with its information
+        persons.add(students);
+
+
+    }
+
+
+
+    public void addTeacher(Scanner scanner){
+
+        //Asks for teacher name
+        System.out.print("Enter teacher name: ");
+        String teacherName = scanner.nextLine();
+
+        while (teacherName.trim().isEmpty()){
+            System.out.print("Enter valid name: ");
+            teacherName = scanner.nextLine();
+        }
+
+
+        int teacherAge = 0;
+
+        //For the while loop
+        boolean teacherAgeValid = false;
+
+        //While loop to keep looping until valid input
+        while (!teacherAgeValid) {
+            try {
+                //Asks for teacher age
+                System.out.print("Enter teacher age: ");
+                teacherAge = Integer.parseInt(scanner.nextLine());
+
+                InvalidTeacherAgeException.validateTeacherAge(teacherAge);
+
+                teacherAgeValid = true;
+
+            } catch (NumberFormatException nfe) {
+                System.out.println("Must be an integer!");
+            } catch (InvalidTeacherAgeException itae) {
+                System.out.println(itae.getMessage());
+            }
+
+        }
+
+        //Asks for teacher department
+        System.out.print("Enter teachers department: ");
+        String teacherDepartment = scanner.nextLine();
+
+        //While loop to make sure that the user inputs something
+        while (teacherDepartment.trim().isEmpty()){
+            System.out.print("You must enter a department!: " );
+            teacherDepartment = scanner.nextLine();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }
