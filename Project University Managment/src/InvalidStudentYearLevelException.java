@@ -1,0 +1,2 @@
+public class InvalidStudentYearLevelException extends {
+}
