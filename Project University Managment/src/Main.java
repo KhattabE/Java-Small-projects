@@ -1,3 +1,5 @@
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.ArrayList;
 
 import java.util.Scanner;
@@ -86,6 +88,12 @@ public class Main {
                     case 1 -> addStudent(scanner); //Method calls AddStudent()
 
                     case 2 -> addTeacher(scanner); //Method call addTeacher()
+
+                    case 3 -> addAdminStaff(scanner);
+
+                    case 4 -> displayAllPeople();
+
+                    case 5 -> System.exit(0);
                 }
 
                 //Catch blocks to catch the exception if they occur, and then print out a message
@@ -97,10 +105,6 @@ public class Main {
             }
         }
     }
-
-
-
-
 
 
     //Method to add students
@@ -121,7 +125,6 @@ public class Main {
         //Prints a message when a student has been successfully added
         System.out.println(studentName + " has been added!");
         System.out.println("--------------------------------------------------------------------");
-
 
 
         //A boolean variable so I can make my while loop
@@ -154,7 +157,6 @@ public class Main {
         }
 
 
-
         //Asks user to enter student major
         System.out.print("Enter students major: ");
         String studentMajor = scanner.nextLine();
@@ -168,7 +170,6 @@ public class Main {
         //Prints a message when a major has been successfully added
         System.out.println(studentMajor + " has been added");
         System.out.println("--------------------------------------------------------------------");
-
 
 
         //Boolean to use in a while loop
@@ -191,7 +192,7 @@ public class Main {
 
             } catch (InvalidStudentYearLevelException isyle) {
                 System.out.println(isyle.getMessage());
-            } catch (NumberFormatException nfe){
+            } catch (NumberFormatException nfe) {
                 System.out.println("--------------------------------------------------------------------");
                 System.out.println("Please enter a valid number!");
                 System.out.println("--------------------------------------------------------------------");
@@ -213,18 +214,19 @@ public class Main {
                 studentGPA = Double.parseDouble(scanner.nextLine());
 
                 InvalidGpaException.validateGPA(studentGPA);
-
+                System.out.println("--------------------------------------------------------------------");
                 isGPAValid = true;
 
             } catch (InvalidGpaException ige) {
                 System.out.println(ige.getMessage());
-            } catch (NumberFormatException nfe){
+            } catch (NumberFormatException nfe) {
                 System.out.println("You must enter a decimal number!");
+                System.out.println("--------------------------------------------------------------------");
             }
         }
 
         //Instancing the Student object
-        Student students = new Student(studentName, studentAge, studentMajor, studentYearLevel, studentGPA );
+        Student students = new Student(studentName, studentAge, studentMajor, studentYearLevel, studentGPA);
         //Add the object to the arraylist with its information
         persons.add(students);
 
@@ -232,17 +234,18 @@ public class Main {
     }
 
 
-
-    public void addTeacher(Scanner scanner){
+    public void addTeacher(Scanner scanner) {
 
         //Asks for teacher name
+        System.out.println("--------------------------------------------------------------------");
         System.out.print("Enter teacher name: ");
         String teacherName = scanner.nextLine();
 
-        while (teacherName.trim().isEmpty()){
+        while (teacherName.trim().isEmpty()) {
             System.out.print("Enter valid name: ");
             teacherName = scanner.nextLine();
         }
+        System.out.println("--------------------------------------------------------------------");
 
 
         int teacherAge = 0;
@@ -254,6 +257,7 @@ public class Main {
         while (!teacherAgeValid) {
             try {
                 //Asks for teacher age
+                System.out.println("--------------------------------------------------------------------");
                 System.out.print("Enter teacher age: ");
                 teacherAge = Integer.parseInt(scanner.nextLine());
 
@@ -267,6 +271,8 @@ public class Main {
                 System.out.println(itae.getMessage());
             }
 
+            System.out.println("--------------------------------------------------------------------");
+
         }
 
         //Asks for teacher department
@@ -274,43 +280,173 @@ public class Main {
         String teacherDepartment = scanner.nextLine();
 
         //While loop to make sure that the user inputs something
-        while (teacherDepartment.trim().isEmpty()){
-            System.out.print("You must enter a department!: " );
+        while (teacherDepartment.trim().isEmpty()) {
+            System.out.print("You must enter a department!: ");
             teacherDepartment = scanner.nextLine();
         }
 
+        System.out.println("--------------------------------------------------------------------");
 
 
+        double teacherBaseSalary = 0;
 
 
+        //to be able to loop in the while loop, as long as isTeacherBaseValid = false
+        boolean isTeacherBaseValid = false;
+
+        while (!isTeacherBaseValid) {
+
+            try {
+
+                //Asks for teacher salary
+                System.out.print("Enter Teachers base Salary: ");
+                teacherBaseSalary = Double.parseDouble(scanner.nextLine());
+
+                InvalidTeacherBaseSalaryException.validateTeacherBaseSalary(teacherBaseSalary);
+
+                isTeacherBaseValid = true;
+
+            } catch (InvalidTeacherBaseSalaryException itsbe) {
+                System.out.println(itsbe.getMessage());
+            } catch (NumberFormatException nfe) {
+                System.out.println("--------------------------------------------------------------------");
+                System.out.println("You must enter a number!");
+                System.out.println("--------------------------------------------------------------------");
+            }
 
 
+        }
 
 
+        //asks for the teachers subject
+        System.out.println("--------------------------------------------------------------------");
+        System.out.print("Enter teacher subject: ");
+        String teacherSubject = scanner.nextLine();
+
+        while (teacherSubject.trim().isEmpty()) {
+            System.out.println("--------------------------------------------------------------------");
+            System.out.print("You must enter something!: ");
+            teacherSubject = scanner.nextLine();
+            System.out.println("--------------------------------------------------------------------");
+
+        }
+
+        System.out.println("--------------------------------------------------------------------");
 
 
+        boolean teacherIsFullTime = false;
+        System.out.println("--------------------------------------------------------------------");
+        System.out.println("Is the teacher full time?: ");
+        String isTeacherFullTime = scanner.nextLine();
 
+        while (!isTeacherFullTime.equalsIgnoreCase("Yes") && !isTeacherFullTime.equalsIgnoreCase("No")){
+            System.out.print("You must enter yes or no!: ");
+            isTeacherFullTime = scanner.nextLine();
+        }
+        if (isTeacherFullTime.equalsIgnoreCase("Yes")) {
+            teacherIsFullTime = true;
+        } else if (isTeacherFullTime.equalsIgnoreCase("no")) {
+            System.out.println("The teacher is part time!");
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //Instantiating teacher object
+        Teacher teachers = new Teacher(teacherName, teacherAge, teacherDepartment, teacherBaseSalary, teacherSubject, teacherIsFullTime);
+        //Putting the information into the arrayList
+        persons.add(teachers);
 
 
     }
+
+
+    public void addAdminStaff(Scanner scanner) {
+        System.out.println("--------------------------------------------------------------------");
+
+        // Ask for Admin name
+        System.out.print("Enter admin staff name: ");
+        String adminName = scanner.nextLine();
+        while (adminName.trim().isEmpty()) {
+            System.out.print("You must enter a name!: ");
+            adminName = scanner.nextLine();
+        }
+
+        // Validate age
+        int adminAge = 0;
+        boolean isAgeValid = false;
+        while (!isAgeValid) {
+            try {
+                System.out.print("Enter admin staff age: ");
+                adminAge = Integer.parseInt(scanner.nextLine());
+                Validator.validateStudentAge(adminAge); // reuse same validator (16+)
+                isAgeValid = true;
+            } catch (NumberFormatException nfe) {
+                System.out.println("You must enter a number!");
+            } catch (IllegalArgumentException iae) {
+                System.out.println(iae.getMessage());
+            }
+        }
+
+        // Department
+        System.out.print("Enter admin staff department: ");
+        String adminDepartment = scanner.nextLine();
+        while (adminDepartment.trim().isEmpty()) {
+            System.out.print("You must enter a department!: ");
+            adminDepartment = scanner.nextLine();
+        }
+
+        // Base Salary
+        double adminBaseSalary = 0;
+        boolean isSalaryValid = false;
+        while (!isSalaryValid) {
+            try {
+                System.out.print("Enter admin staff base salary: ");
+                adminBaseSalary = Double.parseDouble(scanner.nextLine());
+                InvalidTeacherBaseSalaryException.validateTeacherBaseSalary(adminBaseSalary);
+                isSalaryValid = true;
+            } catch (InvalidTeacherBaseSalaryException itsbe) {
+                System.out.println(itsbe.getMessage());
+            } catch (NumberFormatException nfe) {
+                System.out.println("You must enter a number!");
+            }
+        }
+
+        // Role
+        System.out.print("Enter admin role: ");
+        String adminRole = scanner.nextLine();
+        while (adminRole.trim().isEmpty()) {
+            System.out.print("You must enter a role!: ");
+            adminRole = scanner.nextLine();
+        }
+
+        // Contract status
+        boolean isOnContract = false;
+        System.out.print("Is the admin on contract? (Yes/No): ");
+        String contractInput = scanner.nextLine();
+        while (!contractInput.equalsIgnoreCase("Yes") && !contractInput.equalsIgnoreCase("No")) {
+            System.out.print("You must enter Yes or No!: ");
+            contractInput = scanner.nextLine();
+        }
+        if (contractInput.equalsIgnoreCase("Yes")) {
+            isOnContract = true;
+        }
+
+        // Create object
+        AdminStaff admin = new AdminStaff(adminName, adminAge, adminDepartment, adminBaseSalary, adminRole, isOnContract);
+
+        // Add to list
+        persons.add(admin);
+    }
+
+
+    public void displayAllPeople(){
+        for (int i = 0; i < persons.size(); i++) {
+            persons.get(i).displayInfo();
+        }
+
+    }
+
+
+
+
 
 
 }
