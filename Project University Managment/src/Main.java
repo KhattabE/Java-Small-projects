@@ -150,7 +150,7 @@ public class Main {
         String studentMajor = scanner.nextLine();
 
         //While loop to make sure the user enter something valid
-        while (studentMajor.trim().isEmpty()){
+        while (studentMajor.trim().isEmpty()) {
             System.out.print("You must enter a major: ");
             studentMajor = scanner.nextLine();
         }
@@ -159,16 +159,30 @@ public class Main {
         System.out.println(studentMajor + " has been added");
         System.out.println("--------------------------------------------------------------------");
 
+        //
+        boolean isYearValid = false;
+        //
+        while (!isYearValid) {
 
-        //Asks user to enter the students year level
+            try {
+                //Asks user to enter the students year level
+                System.out.print("Enter student year level(1-6): ");
+                int studentYearLevel = Integer.parseInt(scanner.nextLine());
 
+                //This calls the static method from the custom exception class
+                InvalidStudentYearLevelException.validateStudentYear(studentYearLevel);
 
-        System.out.print("Enter student year level: ");
-        int studentYearLevel = Integer.parseInt(scanner.nextLine());
+                isYearValid = true;
 
+            } catch (InvalidStudentYearLevelException isyle) {
+                System.out.println(isyle.getMessage());
+            } catch (NumberFormatException nfe){
+                System.out.println("--------------------------------------------------------------------");
+                System.out.println("Please enter a valid number!");
+                System.out.println("--------------------------------------------------------------------");
+            }
 
-
-
+        }
 
 
     }
