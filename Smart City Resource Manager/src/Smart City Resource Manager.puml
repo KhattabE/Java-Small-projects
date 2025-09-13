@@ -1,0 +1,63 @@
+@startuml
+
+
+abstract class CityEntity{
+    -String name
+    -String cityType
+    +displayInfo()
+}
+
+abstract class Person{
+    -int age
+    +getRole()
+}
+
+interface Payable{
+    +calculateSalary()
+}
+
+interface MaintainsInfrastructure{
+    +performMaintenance()
+}
+
+class Citizen{
+ -String occupation
+ -boolean isEmployed
+
+}
+
+class GovernmentEmployee{
+    -String department
+    -double baseSalary
+}
+
+class MaintenanceWorker{
+    -String assignedZone
+}
+
+class EnergyProvider{
+    -int powerOutput
+    -String region
+    -double baseRate
+
+    }
+
+
+
+
+Person --|> CityEntity
+
+Citizen --|> Person
+
+GovernmentEmployee --|> Person
+GovernmentEmployee ..|> Payable
+
+MaintenanceWorker --|> GovernmentEmployee
+MaintenanceWorker ..|> MaintainsInfrastructure
+
+EnergyProvider --|> CityEntity
+EnergyProvider ..|> Payable
+
+
+
+@enduml
