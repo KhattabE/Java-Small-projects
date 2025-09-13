@@ -1,0 +1,44 @@
+@startuml
+
+class JournalEntry{
+
+ -String date
+ -String mood
+ -String notes
+ +toFormattedString()
+}
+
+abstract class User{
+
+    -String name
+    -int age
+    - abstract getRole()
+}
+
+class WriteUser{
+ +ArrayList
+ +addJournalEntry()
+ +listJournalEntries()
+}
+
+interface FileHandler{
++abstract saveToFile
++abstract loadFromFile()
+
+}
+
+class JournalManager{
+
+}
+
+
+
+
+
+
+WriteUser --|> User
+JournalManager ..|> FileHandler
+
+
+
+@enduml

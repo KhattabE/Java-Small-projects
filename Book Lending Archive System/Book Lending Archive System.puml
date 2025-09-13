@@ -1,0 +1,42 @@
+@startuml
+
+
+interface Roles{
++abstract getRole()
+
+}
+
+interface DisplayInfo{
++abstract displayDetailsOfLend()
+}
+
+
+class Book{
+ -String title
+ -String author
+ -int yearPublished
+ -String genre
+ +displayBookInfo()
+}
+
+class Perosn{
+    -String name
+    -int age
+    -int iD
+    +displayPersonInfo()
+    +override getRole()
+}
+
+
+class LendingRecord{
+    +override displayDetailsOfLend()
+}
+
+
+
+
+Perosn ..|> Roles
+LendingRecord ..|> DisplayInfo
+
+
+@enduml
