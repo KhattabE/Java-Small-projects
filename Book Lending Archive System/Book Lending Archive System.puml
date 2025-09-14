@@ -30,7 +30,20 @@ class Perosn{
 
 class LendingRecord{
     +override displayDetailsOfLend()
+    +toFileString()
 }
+
+interface FileHandler{
+    +saveToFil(ArrayList<LendingRecord> records)
+    +loadFromFile()
+}
+
+class LendingRecordManager{
+    -ArrayList<LendingRecord>
+    +override SaveToFill()
+}
+
+LendingRecordManager ..|> FileHandler
 
 
 
