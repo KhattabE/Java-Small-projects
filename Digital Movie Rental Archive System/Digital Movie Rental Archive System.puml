@@ -1,0 +1,56 @@
+@startuml
+
+class Movie{
+ -String title
+ -String genre
+ -String directorName
+ -int releaseYear
+ + void displayMovieInfo()
+
+}
+
+class Customer{
+    -String name
+    -String email
+    -String memberShipID
+    +displayCustomerInfo()
+    +implements getRole()
+}
+
+class RentalRecord{
+ -Movie movies
+ -Customer customers
+ -LocalDate RentalDate
+ -LocalDate ReturnDate
+ +void displayRentalInformation()
+ +String toFileString()
+}
+
+class RentalManager{
+    +ArrayList<RentalRecord> rentalRecords
+    +implements saveToFill()
+    +implements loadFromFile()
+    +ArrayList<RentalRecord> loadedRecords
+}
+
+
+
+
+
+interface fileHandler{
+    +void saveToFill(ArrayList<RentalRecord> rentalRecords)
+    +ArrayList<RentalRecord> loadFromFile()
+
+}
+
+
+interface Roles{
+    +abstract getRole()
+}
+
+
+Customer ..|> Roles
+RentalManager ..|> fileHandler
+
+
+@enduml
