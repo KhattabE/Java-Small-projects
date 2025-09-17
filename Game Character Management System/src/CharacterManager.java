@@ -25,6 +25,7 @@ public class CharacterManager {
         this.warriors = warriors;
         this.mages = mages;
         this.archers = archers;
+
     }
 
     //Getters
