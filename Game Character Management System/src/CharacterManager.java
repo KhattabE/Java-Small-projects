@@ -5,15 +5,15 @@ import java.util.HashSet;
 public class CharacterManager {
 
     //Array list that will hold all our characters
-    ArrayList<GameCharacter> allCharacters;
+    public ArrayList<GameCharacter> allCharacters = new ArrayList<>();
 
     //A hashSet that will hold unique names
-    HashSet<String> warriorNames;
-    HashSet<String> mageNames;
-    HashSet<String> archerNames;
+    HashSet<String> warriorNames = new HashSet<>();
+    HashSet<String> mageNames = new HashSet<>();
+    HashSet<String> archerNames = new HashSet<>();
 
     //HashMap with key-pair values
-    HashMap<String, HashSet<String>> factionKeyNamePair;
+    HashMap<String, HashSet<String>> factionKeyNamePair = new HashMap<>();
 
     //Class fields/Objects
     private Warrior warriors;
@@ -56,22 +56,21 @@ public class CharacterManager {
 
 
     //Method to add characters
-    public void addCharacter() {
+    public void addCharacter(GameCharacter character) {
         //Add the characters to the ArrayList
-        allCharacters.add(warriors);
-        allCharacters.add(mages);
-        allCharacters.add(archers);
+        allCharacters.add(character);
 
-        //Add the character names to the hashSet
-        warriorNames.add(warriors.getName());
-        mageNames.add(mages.getName());
-        archerNames.add(archers.getName());
-
-        //Adds key-pair value to the hash map, where the Key is the faction and the Value is the name
-        factionKeyNamePair.putIfAbsent(warriors.getFaction(), warriorNames);
-        factionKeyNamePair.putIfAbsent(mages.getFaction(), mageNames);
-        factionKeyNamePair.putIfAbsent(archers.getFaction(), archerNames);
-
+        // Check character type and handle accordingly
+        if (character instanceof Warrior) {
+            warriorNames.add(character.getName());
+            factionKeyNamePair.putIfAbsent(character.getFaction(), warriorNames);
+        } else if (character instanceof Mage) {
+            mageNames.add(character.getName());
+            factionKeyNamePair.putIfAbsent(character.getFaction(), mageNames);
+        } else if (character instanceof Archer) {
+            archerNames.add(character.getName());
+            factionKeyNamePair.putIfAbsent(character.getFaction(), archerNames);
+        }
 
     }
 

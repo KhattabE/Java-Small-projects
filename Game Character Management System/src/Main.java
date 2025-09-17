@@ -1,7 +1,17 @@
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
+
+    //--------------------------------------------TEMP Character Objects---------------------------------------
+    Warrior defaultWarrior = new Warrior("Temp", 1, 100, "Sword");
+    Mage defaultMage = new Mage("Temp", 1, 100, "Staff");
+    Archer defaultArcher = new Archer("Temp", 1, 100, "Bow");
+
+    CharacterManager manager = new CharacterManager(defaultWarrior, defaultMage, defaultArcher);
+    //--------------------------------------------TEMP Character Objects---------------------------------------
+
+
+
     public static void main(String[] args) {
 
 
@@ -10,6 +20,10 @@ public class Main {
 
         //Scanner for userinput
         Scanner scanner = new Scanner(System.in);
+
+
+
+
 
 
         main.welcomeMenuChoice(scanner);
@@ -69,7 +83,7 @@ public class Main {
                 isValid = true;
 
                 switch (choice) {
-                    case 1 -> addCharacter(scanner);
+                    case 1 -> addCharacter(scanner, manager);
 
                     //case 2 ->
                 }
@@ -85,7 +99,7 @@ public class Main {
     }
 
 
-    void addCharacter (Scanner scanner){
+    void addCharacter (Scanner scanner, CharacterManager manager){
 
         System.out.println("Factions you can choose from: ");
         System.out.println("Warrior:");
@@ -97,18 +111,54 @@ public class Main {
         if(factionChoice.equalsIgnoreCase("Warrior")){
 
             //Ask for warrior name
-
+            System.out.print("Enter Warriors name: ");
+            String warriorName = scanner.nextLine();
 
 
 
             //Ask for warrior Level
-
+            System.out.print("Enter Warriors level: ");
+            int warriorLevel = Integer.parseInt(scanner.nextLine());
 
 
             //Ask for warrior health
+            System.out.print("Enter Warriors Health: ");
+            double warriorHealth = Double.parseDouble(scanner.nextLine());
 
 
             //Ask for warrior Weapon Type
+            System.out.print("Enter Warriors Weapon type: ");
+            String warriorWeaponType = scanner.nextLine();
+
+            Warrior warrior = new Warrior(warriorName, warriorLevel, warriorHealth, warriorWeaponType);
+            manager.addCharacter(warrior);
+
+
+        } else if(factionChoice.equalsIgnoreCase("Mage")){
+
+            //Ask for mage name
+
+
+            //Ask for mage level
+
+
+            //Ask for mage health
+
+
+            //Ask for mage weapon type
+
+        } else if (factionChoice.equalsIgnoreCase("Archer")) {
+
+            //Ask for archer name
+
+
+            //Ask for archer level
+
+
+            //Ask for archer health
+
+
+            //Ask for archer weapon type
 
         }
 
