@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class AudioBook extends AudioContent implements Playable{
 
     //Class fields
@@ -47,6 +49,13 @@ public class AudioBook extends AudioContent implements Playable{
         return "The Audio Book: " + getTitle() + ", By " + this.reader + " is now playing!";
     }
 
+    //Overrides the getGenre method, so it can be used for hashmap
+    @Override
+    public String getGenre(){
+        return this.audioBookGenre;
+    }
+
+
 
     //Override the Object class method equals(), will be used to prevent duplicates
     @Override
@@ -66,6 +75,13 @@ public class AudioBook extends AudioContent implements Playable{
                 (getTitle() != null && getTitle().equals(otherInstanceOfAudioBook.getTitle()));
         return titleEquals;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTitle());
+    }
+
+
 
 
 }

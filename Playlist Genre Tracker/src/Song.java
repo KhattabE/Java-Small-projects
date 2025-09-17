@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Song extends AudioContent implements Playable {
 
     //Class fields
@@ -46,6 +48,14 @@ public class Song extends AudioContent implements Playable {
         return "The Song: " + getTitle() + ", By " + this.artist + " is now playing!";
     }
 
+
+    @Override
+    public String getGenre(){
+        return this.songGenre;
+    }
+
+
+
     //We override the equals() Method to check for equality, and so we can avoid duplicates
     @Override
     public boolean equals(Object songEquals){
@@ -62,8 +72,14 @@ public class Song extends AudioContent implements Playable {
                 (this.getTitle() != null && this.getTitle().equals(otherInstanceOfSong.getTitle()));
         return titleEquals;
 
-
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTitle());
+    }
+
+
 
 
 }

@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Podcast extends AudioContent{
 
     //Class fields
@@ -55,6 +57,13 @@ public class Podcast extends AudioContent{
                 " is now playing and is featuring: " + this.podcastGuest + " as today's guest!";
     }
 
+    @Override
+    public String getGenre() {
+        return podcastGenre;
+    }
+
+
+
 
     //Override the Object class equal() method to prevent duplication
     @Override
@@ -71,6 +80,12 @@ public class Podcast extends AudioContent{
                 (this.getTitle() != null && getTitle().equals(otherInstanceOfPodcast.getTitle()));
         return titleEquals;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTitle());
+    }
+
 
 
 

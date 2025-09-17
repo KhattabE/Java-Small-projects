@@ -31,6 +31,9 @@ public abstract class AudioContent {
     //Abstract method that will be used by the extending child class
     public abstract void displayAudioInfo();
 
+    //Will be used to be able to hashMap all the different genres
+    public abstract String getGenre();
+
 
 
 
