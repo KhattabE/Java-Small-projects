@@ -76,10 +76,18 @@ public class CharacterManager {
 
     //Method to display our characters from the ArrayList
     public void displayAllCharacters() {
-        for (GameCharacter character : allCharacters) {
-            character.displayInfo();
+
+        if(allCharacters.isEmpty()){
+            System.out.println("The List Is Empty!");
+        } else {
+
+            for (GameCharacter character : allCharacters) {
+                character.displayInfo();
+            }
         }
     }
+
+
 
     //Method to search by function, and check if the function even is there
     public void searchByFunction() {
@@ -98,10 +106,9 @@ public class CharacterManager {
         } else {
             System.out.println("There is no Archer faction at this moment!");
         }
+        System.out.println("-------------------------------------------------------------");
 
     }
-
-
 
 
 
